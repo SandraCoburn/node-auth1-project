@@ -39,7 +39,7 @@ router.post("/login", (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-  if (req.sessio) {
+  if (req.session) {
     req.session.destroy(err => {
       if (err) {
         res.status(500).json({
@@ -50,7 +50,7 @@ router.get("/logout", (req, res) => {
       }
     });
   } else {
-    res.status(200).json({ message: `Bye ${user.username}` });
+    res.status(200).json({ message: `Bye` });
   }
 });
 
