@@ -9,11 +9,11 @@ router.post("/register", (req, res) => {
   user.password = hash;
 
   Users.add(user)
-    .then(saved => {
+    .then((saved) => {
       req.session.loggedIn = true;
       res.status(201).json(saved);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json(err);
     });
 });
@@ -23,7 +23,7 @@ router.post("/login", (req, res) => {
 
   Users.findBy({ username })
     .first()
-    .then(user => {
+    .then((user) => {
       console.log("user", user);
       if (user && bcrypt.compareSync(password, user.password)) {
         req.session.loggedIn = true;
@@ -33,17 +33,17 @@ router.post("/login", (req, res) => {
         res.status(401).json({ message: "Invalid Credentials" });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json(err);
     });
 });
 
 router.get("/logout", (req, res) => {
   if (req.session) {
-    req.session.destroy(err => {
+    req.session.destroy((err) => {
       if (err) {
         res.status(500).json({
-          you: "can check out any time you like, but you can never leave"
+          you: "can check out any time you like, but you can never leave",
         });
       } else {
         res.status(200).json({ you: "logged out successfully" });
